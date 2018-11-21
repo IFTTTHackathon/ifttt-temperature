@@ -33,7 +33,7 @@ try:
         # Mit einem Timestamp versehe ich meine Messung und lasse mir diese in der Console ausgeben.
         print("Temperatur um " + time.strftime('%H:%M:%S') +" drinnen: " + temp + " °C")
         payload = {'sender': 'piZero', 'temp': temp, 'time': time.time()}
-        r = requests.post("http://httpbin.org/post", data=payload)
+        r = requests.post("http://httpbin.org/post", json=payload)
         print()
         print(r.text)
         print()
