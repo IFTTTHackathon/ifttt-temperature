@@ -1,4 +1,4 @@
-import time, sys, requests
+import time, sys, requests, json
 # Systempfad zum den Sensor, weitere Systempfade könnten über ein Array
 # oder weiteren Variablen hier hinzugefügt werden.
 # 28-02161f5a48ee müsst ihr durch die eures Sensors ersetzen!
@@ -32,8 +32,8 @@ try:
         temp = str(readTempLines(sensor)[0])
         # Mit einem Timestamp versehe ich meine Messung und lasse mir diese in der Console ausgeben.
         print("Temperatur um " + time.strftime('%H:%M:%S') +" drinnen: " + temp + " °C")
-        payload = {'sender': 'piZero', 'temp': temp, 'time': time.time()}
-        r = requests.post("http://httpbin.org/post", json=payload)
+        payload = json.dumps({'sender': 'piZero', 'temp': temp, 'time': time.time()})
+        r = requests.post("http://10.0.34.111:8080/hackrest/temperature", data=payload,headers = {'content-type': 'application/json'})
         print()
         print(r.text)
         print()
